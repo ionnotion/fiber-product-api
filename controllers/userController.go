@@ -50,10 +50,14 @@ func RegisterHandler(c *fiber.Ctx) error {
 		return err
 	}
 
-	newUser := models.User{Username: input.Username, Password: input.Password}
+	newUser := new(models.User)
+	if err := c.BodyParser(newUser); err != nil {
+		return err
+	}
+
 	err := configs.DB.Create(&newUser)
 
-	if err != nil {
+	if err.Error != nil {
 		return c.Status(400).JSON(models.Response{Message: err.Error.Error()})
 	}
 

@@ -13,8 +13,6 @@ func Authentication (c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(401).JSON(models.Response{Message: "Invalid Authorization"})
 	}
-
-
 	
 	if c.Locals("id") == nil {
 		return c.Status(401).JSON(models.Response{Message: "Unauthorized"})

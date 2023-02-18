@@ -15,13 +15,18 @@ func main() {
 		return c.Status(200).JSON(models.Response{Message: "Hello World"})
 	})
 
-	configs.GormConnect()
+	err := configs.GormConnect()
+
+	if err != nil {
+		panic(err)
+	}
 
 	user := app.Group("/user")
 	user.Post("/login",controllers.LoginHandler)
 	user.Post("/register",controllers.RegisterHandler)
 	
-	product := app.Group("/product",middlewares.Authentication)
+	product := app.Group("/product")
+	product.Use(middlewares.Authentication)
 	product.Get("/",controllers.GetProducts)
 	product.Post("/",controllers.PostProducts)
 
