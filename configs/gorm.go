@@ -7,19 +7,20 @@ import (
 )
 
 var DB *gorm.DB
+var err error
 
-func GormConnect() {
-	database, err := gorm.Open(sqlite.Open("Product.db"), &gorm.Config{})
+func GormConnect() error {
+	DB, err = gorm.Open(sqlite.Open("Product.db?_foreign_keys=on"), &gorm.Config{})
 
 	if err !=nil {
-		panic("Connection to Database Failed!!")
+		return err
 	}
 
-	err = database.AutoMigrate(&models.Product{},&models.User{})
+	err = DB.AutoMigrate(&models.Product{},&models.User{})
 
 	if err != nil {
-		return
+		return err
 	}
 
-	DB = database
+	return nil
 }
