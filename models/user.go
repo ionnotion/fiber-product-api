@@ -1,10 +1,13 @@
 package models
 
-import "github.com/ionnotion/fiber-product-api/helpers"
+import (
+	"github.com/ionnotion/fiber-product-api/helpers"
+	"gorm.io/gorm"
+)
 
 type User struct {
-	Id       uint64 `gorm:"primaryKey; not null" json:"id"`
-	Username string `json:"username" binding:"required"`
+	Id       uint64 `gorm:"primaryKey; not null;" json:"id"`
+	Username string `gorm:"unique" json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
@@ -13,9 +16,10 @@ type UserForm struct {
 	Password string `json:"password" binding:"required"`
 }
 
-func (u *User) BeforeSave() error {
-	hash, err := helpers.HashPassword(u.Password)
+func (u *User) BeforeSave(tx *gorm.DB) error {
 
+	hash, err := helpers.HashPassword(u.Password)
+	
 	if err != nil {
 		return err
 	}

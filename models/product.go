@@ -9,7 +9,7 @@ type Product struct {
 	ProductAmount uint64 `json:"productAmount" binding:"required"`
 	ProductPrice uint64 `json:"productPrice" binding:"required"`
 	OrderedAt string `json:"OrderedAt"`
-	User User `gorm:"foreignKey:UserRefer"`
+	User User `gorm:"ForeignKey:Id"`
 }
 
 type ProductForm struct {

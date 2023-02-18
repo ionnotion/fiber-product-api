@@ -8,7 +8,7 @@ import (
 
 var secret = "rahasia"
 
-func generateToken (UserId uint64) (string, error) {
+func GenerateToken (UserId uint64) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["UserId"] = UserId
 	claims["exp"] = time.Now().Add(time.Hour * 6).Unix()
