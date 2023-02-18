@@ -8,7 +8,7 @@ import (
 var DB *gorm.DB
 
 func GormConnect() {
-	database, err := gorm.Open(sqlite.Open("Property.db"), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("Product.db"), &gorm.Config{})
 
 	if err !=nil {
 		panic("Connection to Database Failed!!")
