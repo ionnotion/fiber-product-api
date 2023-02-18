@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/ionnotion/fiber-product-api/configs"
+	"github.com/ionnotion/fiber-product-api/middlewares"
 	"github.com/ionnotion/fiber-product-api/models"
 )
 
@@ -14,6 +15,14 @@ func main() {
 	})
 
 	configs.GormConnect()
+
+	user := app.Group("/user")
+	user.Post("/login")
+	user.Post("/register")
+	
+	product := app.Group("/product",middlewares.Authentication)
+	product.Get("/")
+	product.Post("/")
 
 	app.Listen(":8080")
 }
