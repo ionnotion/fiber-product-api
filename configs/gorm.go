@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"github.com/ionnotion/fiber-product-api/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -14,7 +15,7 @@ func GormConnect() {
 		panic("Connection to Database Failed!!")
 	}
 
-	// err = database.AutoMigrate(&PropertyPromotion{})
+	err = database.AutoMigrate(&models.Product{},&models.User{})
 
 	if err != nil {
 		return
