@@ -3,6 +3,7 @@ module github.com/ionnotion/fiber-product-api
 go 1.20
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gofiber/fiber/v2 v2.42.0
 	golang.org/x/crypto v0.6.0
 	gorm.io/driver/sqlite v1.4.4
